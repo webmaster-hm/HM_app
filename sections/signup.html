@@ -1,0 +1,50 @@
+
+<section id="signup" data-transition="slide"
+	data-aside="features">
+	<header data-title="Create Account" data-target="back">
+		<nav class="left">
+			<a href="#" data-view-section="back"> <span
+				class="icon chevron-left"></span>
+			</a>
+		</nav>
+	</header>
+	<article id="art-signup" class="scroll active">
+		<div class="frm-search">
+			<div class="form">
+			<label class="top2p">Name *</label>
+				<fieldset class="radius-top bottom10 " data-icon="pencil">
+			<input type="text" placeholder="Enter your name" id="txtSignupName" value="" >
+			</fieldset>
+	<label>Surname *</label>
+				<fieldset class="radius-top bottom10 " data-icon="pencil">
+			<input type="text" placeholder="Enter your surname" id="txtSignupSurname" value="" >
+			</fieldset>			
+			<label >Email *</label>
+				<fieldset class="radius-top bottom10 " data-icon="user">
+					<input type="email" placeholder="Enter your email" id="txtSignupEmail"
+						value="">
+				</fieldset>
+				<label>Password *</label>
+				<fieldset class="radius-top bottom10 " data-icon="lock">
+					<input type="password" placeholder="Enter your password"
+						id="txtSignupPass" value="">
+				</fieldset>
+				<label>Repeat password *</label>
+				<fieldset class="radius-top bottom10 " data-icon="lock">
+					<input type="password" placeholder="Repeat your password"
+						id="txtSignupRepeatPass" value="">
+				</fieldset>
+				<label>How many riders will use this account?</label>
+				<label class="select border">
+				<select id="frm-signup-riders">
+					<option value="1" selected="selected">Only me</option>
+					<option value="2">Another rider (not me!)</option>
+					<option value="3">Two or more riders</option>
+				</select>
+				</label>
+				<button id="frm-signup-action" class="anchor margin-bottom" data-label="Create account" data-icon="pencil"></button>
+				<h5>By creating an account, I accept the <a href="javascript:WS_Leer_terms('terms_buyers');" class="underline">Terms of Use and Privacy Policy</a>.</h5>
+			</div>
+		</div>
+	</article>
+</section>

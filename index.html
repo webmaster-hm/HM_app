@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<meta charset="UTF-8">
+<meta name="description" content="">
+<meta name="author" content="Vallealto WebTech">
+<meta name="HandheldFriendly" content="True">
+<meta name="viewport"
+	content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="format-detection" content="telephone=no">
+<meta http-equiv="cleartype" content="on">
+<title>Horse Monkey</title>
+
+<link rel="stylesheet" href="css/lungo.css">
+<link rel="stylesheet" href="css/lungo.icon.css">
+<link rel="stylesheet" href="css/app.theme.css">
+<link rel="stylesheet" href="css/app.css">
+<link rel="stylesheet" href="css/icons.css">
+<link rel="stylesheet" href="css/calendar.css" />
+<link rel="stylesheet" href="css/calendar_custom.css" />
+<!-- 
+<link rel="stylesheet" href="css/font-awesome.min.css" />
+ -->
+</head>
+<body>
+
+	<section id="login" data-transition="slide">
+		<article id="art_login" class="active splash">
+			<img src="images/logo.png" class="logo" />
+			<div class="form">
+				<fieldset class="radius-top bottom10 " data-icon="user">
+					<input type="text" placeholder="Enter your email" id="txtLoginUser"
+						value="">
+				</fieldset>
+				<fieldset class="radius-bottom " data-icon="lock">
+					<input type="password" placeholder="Enter your password"
+						id="txtLoginPass" value="">
+				</fieldset>
+				<br /> <a href="#" class="button anchor" data-icon="signin"
+					data-label="Log in" data-action="login"></a> <br>
+					<a href="#"	class="color-verde font90" data-action="forgot">Forgot your password?</a> <br>
+				<br>OR<br>
+				<br> <a href="#" class="button anchor cancel" data-icon="pencil"
+					data-label="Sign up" data-action="signup"></a>
+					 <br> 
+			</div>
+		</article>
+	</section>
+
+</body>
+ 
+ <!-- SOLO COMPILAR EN ECLIPSE ANDROID 
+<script src="phonegap.js"></script>
+ -->
+<script src="https://maps.googleapis.com/maps/api/js?sensor=false"
+	type="text/javascript"></script>
+<script src="js/quo.debug.js"></script>
+<script src="js/lungo.js"></script>
+<script src="js/globales.js"></script>
+<script src="js/app.js"></script>
+<script src="js/eventos.js"></script>
+<script src="js/funciones.js"></script>
+<script src="js/servicios.js"></script>
+<script src="js/vistas.js"></script>
+<script src="js/utils.js"></script>
+<script>
+	Lungo.init({
+		name : 'Horse Monkey Lite',
+		version : '0.1',
+		resources : [ 'sections/next_events.html', 'aside/aside.html',
+				'sections/detail_event.html', 'sections/search_events.html',
+				'sections/select_date.html', 'sections/map_event.html',
+				'sections/menu.html', 'sections/signup.html', 'sections/view_doc.html', 
+				'sections/forgot_pass.html', 'sections/my_inscrip.html'],
+		history : false
+	});
+
+</script>
+<script src="js/jquery-2.0.3.min.js"></script>
+<script src="js/jquery.calendario.js"></script>
+<script src="js/modernizr.js"></script>
+<script src="js/lungo.ready.js"></script>
+<script src="js/jquery.ready.js"></script>
+<script src="js/cifrado.js"></script>
+
+</html>

@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<widget xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://phonegap.com/ns/1.0"	id="com.formacionapp" versionCode="10" version="1.0.0">
+
+	<!-- versionCode is optional and Android only -->
+	<name>Horse Monkey Lite</name>
+
+	<description>
+		App mobile to find and register in UK Horse Events
+	</description>
+
+	<author href="https://build.phonegap.com" email="webmaster@horsemonkey.com">
+		Horse Monkey
+	</author>
+
+	<gap:platform name="ios" />
+	<gap:platform name="android" />
+
+	<!-- iconos para IOS -->
+	<icon src="images/icons/ios/hm_app_57x57.png" gap:platform="ios" width="57" height="57" />
+	<icon src="images/icons/ios/hm_app_72x72.png" gap:platform="ios" width="72" height="72" />
+	<icon src="images/icons/ios/hm_app_114x114.png" gap:platform="ios" width="114" height="114" />
+
+	<!-- retina iPad support: PhoneGap 2.5.0+ only -->
+	<icon src="images/icons/ios/eforma_144.png" gap:platform="ios" width="144" height="144" />
+
+	<!-- icono para Android -->
+	<icon src="images/icons/android/ic_launcher_ldpi.png" gap:platform="android" gap:density="ldpi" />
+	<icon src="images/icons/android/ic_launcher_mdpi.png" gap:platform="android" gap:density="mdpi" />
+	<icon src="images/icons/android/ic_launcher_hdpi.png" gap:platform="android" gap:density="hdpi" />
+	<icon src="images/icons/android/ic_launcher_xhdpi.png" gap:platform="android" gap:density="xhdpi" />
+	<icon src="images/icons/android/ic_launcher_xxhdpi.png" gap:platform="android" gap:density="xxhdpi" />
+	<icon src="images/icons/android/ic_launcher_xxxhdpi.png" gap:platform="android" gap:density="xxxhdpi" />
+
+	<!-- splash screen para IOS -->
+	<gap:splash src="images\splash\splash_320x480.png"  gap:platform="ios" width="320" height="480" />
+	<gap:splash src="images\splash\splash_640x960.png"  gap:platform="ios" width="640" height="960" />
+	<gap:splash src="images\splash\splash_640x1136.png" gap:platform="ios" width="640" height="1136" />
+	<gap:splash src="images\splash\splash_1024x748.png" gap:platform="ios" width="1024" height="748" />
+	<gap:splash src="images\splash\splash_768x1004.png" gap:platform="ios" width="768" height="1004" />
+
+	<!-- retina iPad support: PhoneGap 2.5.0+ only -->
+	<gap:splash src="images\splash\splash_2048x1496.png" gap:platform="ios" width="2048" height="1496" />
+	<gap:splash src="images\splash\splash_1536x2008.png" gap:platform="ios" width="1536" height="2008" />
+
+	<!-- splash screen para Android -->
+	<gap:splash src="images/splash/screen-ldpi-portrait.png" gap:platform="android" gap:density="ldpi" />
+	<gap:splash src="images/splash/screen-mdpi-portrait.png" gap:platform="android" gap:density="mdpi" />
+	<gap:splash src="images/splash/screen-hdpi-portrait.png" gap:platform="android" gap:density="hdpi" />
+	<gap:splash src="images/splash/screen-xhdpi-portrait.png" gap:platform="android"	gap:density="xhdpi" />
+
+	<!-- If you do not want any permissions to be added to your app, add the 
+		following tag to your config.xml; you will still have the INTERNET permission 
+		on your app, which PhoneGap requires. -->
+	<preference name="permissions" value="none" />
+
+	<!-- Customize your app and platform with the preference element. -->
+	<preference name="phonegap-version" value="2.9.0" />          <!-- all: current version of PhoneGap -->
+	<preference name="orientation" value="default" />        <!-- all: default means both landscape and portrait are enabled -->
+	<preference name="target-device" value="universal" />      <!-- all: possible values handset, tablet, or universal -->
+	<preference name="fullscreen" value="true" />           <!-- all: hides the status bar at the top of the screen -->
+	<preference name="webviewbounce" value="true" />           <!-- ios: control whether the screen 'bounces' when scrolled beyond the top -->
+	<preference name="prerendered-icon" value="true" />           <!-- ios: if icon is prerendered, iOS will not apply it's gloss to the app's 
+		icon on the user's home screen -->
+	<preference name="stay-in-webview" value="false" />          <!-- ios: external links should open in the default browser, 'true' would 
+		use the webview the app lives in -->
+	<preference name="ios-statusbarstyle" value="black-opaque" />   <!-- ios: black-translucent will appear black because the PhoneGap webview 
+		doesn't go beneath the status bar -->
+	<preference name="detect-data-types" value="true" />           <!-- ios: controls whether data types (such as phone no. and dates) are automatically 
+		turned into links by the system -->
+	<preference name="exit-on-suspend" value="false" />          <!-- ios: if set to true, app will terminate when home button is pressed -->
+	<preference name="show-splash-screen-spinner" value="true" />           <!-- ios: if set to false, the spinner won't appear on the splash screen 
+		during app loading -->
+	<preference name="auto-hide-splash-screen" value="true" />           <!-- ios: if set to false, the splash screen must be hidden using a JavaScript 
+		API -->
+	<preference name="disable-cursor" value="false" />          <!-- blackberry: prevents a mouse-icon/cursor from being displayed on the 
+		app -->
+	<preference name="android-minSdkVersion" value="8" />              <!-- android: MIN SDK version supported on the target device. MAX version 
+		is blank by default. -->
+	<preference name="android-installLocation" value="auto" />           <!-- android: app install location. 'auto' will choose. 'internalOnly' is 
+		device memory. 'preferExternal' is SDCard. -->
+
+	<!-- to enable individual permissions use the following examples -->
+	<feature name="http://api.phonegap.com/1.0/file" />
+	<feature name="http://api.phonegap.com/1.0/network" />
+	<feature name="http://api.phonegap.com/1.0/notification" />
+
+	<!-- ACCESO -->
+	<access origin="https://horsemonkey.com" subdomains="true" />
+	<access origin="https://maps.googleapis.com" subdomains="true" />
+
+</widget>
