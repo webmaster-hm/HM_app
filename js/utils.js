@@ -196,6 +196,55 @@ function md5(str) {
 	return temp.toLowerCase();
 }
 
+function utf8_decode(str_data) {
+	// discuss at: http://phpjs.org/functions/utf8_decode/
+	// original by: Webtoolkit.info (http://www.webtoolkit.info/)
+	// input by: Aman Gupta
+	// input by: Brett Zamir (http://brett-zamir.me)
+	// improved by: Kevin van Zonneveld (http://kevin.vanzonneveld.net)
+	// improved by: Norman "zEh" Fuchs
+	// bugfixed by: hitwork
+	// bugfixed by: Onno Marsman
+	// bugfixed by: Kevin van Zonneveld (http://kevin.vanzonneveld.net)
+	// bugfixed by: kirilloid
+	// example 1: utf8_decode('Kevin van Zonneveld');
+	// returns 1: 'Kevin van Zonneveld'
+
+	var tmp_arr = [], i = 0, ac = 0, c1 = 0, c2 = 0, c3 = 0, c4 = 0;
+
+	str_data += '';
+
+	while (i < str_data.length) {
+		c1 = str_data.charCodeAt(i);
+		if (c1 <= 191) {
+			tmp_arr[ac++] = String.fromCharCode(c1);
+			i++;
+		} else if (c1 <= 223) {
+			c2 = str_data.charCodeAt(i + 1);
+			tmp_arr[ac++] = String.fromCharCode(((c1 & 31) << 6) | (c2 & 63));
+			i += 2;
+		} else if (c1 <= 239) {
+			// http://en.wikipedia.org/wiki/UTF-8#Codepage_layout
+			c2 = str_data.charCodeAt(i + 1);
+			c3 = str_data.charCodeAt(i + 2);
+			tmp_arr[ac++] = String.fromCharCode(((c1 & 15) << 12)
+					| ((c2 & 63) << 6) | (c3 & 63));
+			i += 3;
+		} else {
+			c2 = str_data.charCodeAt(i + 1);
+			c3 = str_data.charCodeAt(i + 2);
+			c4 = str_data.charCodeAt(i + 3);
+			c1 = ((c1 & 7) << 18) | ((c2 & 63) << 12) | ((c3 & 63) << 6)
+					| (c4 & 63);
+			c1 -= 0x10000;
+			tmp_arr[ac++] = String.fromCharCode(0xD800 | ((c1 >> 10) & 0x3FF));
+			tmp_arr[ac++] = String.fromCharCode(0xDC00 | (c1 & 0x3FF));
+			i += 4;
+		}
+	}
+	return tmp_arr.join('');
+}
+
 function utf8_encode(argString) {
 	// From: http://phpjs.org/functions
 	// + original by: Webtoolkit.info (http://www.webtoolkit.info/)
@@ -308,7 +357,7 @@ function urlencode(str) {
  *            true o false
  * @returns {String}
  */
-function Fecha_a_cadena_corta(fecha, mes_largo) {
+function Fecha_a_cadena_corta(fecha, mes_largo, mostrar_ano) {
 	var d_names = new Array("Sunday", "Monday", "Tuesday", "Wednesday",
 			"Thursday", "Friday", "Saturday");
 	var m_names = new Array("Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul",
@@ -334,11 +383,16 @@ function Fecha_a_cadena_corta(fecha, mes_largo) {
 	}
 	var curr_month = d.getMonth();
 	var curr_year = d.getFullYear();
+	var txt = "";
 	if (mes_largo) {
-		return (d_names[curr_day] + ", " + curr_date + " " + m_names_large[curr_month]);
+		txt = (d_names[curr_day] + ", " + curr_date + " " + m_names_large[curr_month]);
 	} else {
-		return (curr_date + " " + m_names[curr_month]);
+		txt = (curr_date + " " + m_names[curr_month]);
 	}
+	if (mostrar_ano) {
+		txt = txt + " " + curr_year.toString();
+	}
+	return txt;
 }
 
 /**
@@ -458,8 +512,8 @@ function nl2br(string/* , is_HTML */) {
 }
 
 function Quitar_br(string) {
-	var br = string.replace("<br>","");
-	br = br.replace("<br/>","");
+	var br = string.replace("<br>", "");
+	br = br.replace("<br/>", "");
 	return br;
 }
 
@@ -497,7 +551,8 @@ function Validar_email(val) {
  */
 function Fecha_UTC() {
 	var exd = new Date();
-	var arr = new Array(exd.getUTCFullYear(), (exd.getUTCMonth()+1), exd.getUTCDate(), exd.getUTCHours(), exd.getUTCMinutes()); 
+	var arr = new Array(exd.getUTCFullYear(), (exd.getUTCMonth() + 1), exd
+			.getUTCDate(), exd.getUTCHours(), exd.getUTCMinutes());
 	return arr;
 }
 
@@ -513,23 +568,34 @@ function Obtener_navegador() {
 }
 
 function number_format(number, decimals, dec_point, thousands_sep) {
-    var n = !isFinite(+number) ? 0 : +number, 
-        prec = !isFinite(+decimals) ? 0 : Math.abs(decimals),
-        sep = (typeof thousands_sep === 'undefined') ? ',' : thousands_sep,
-        dec = (typeof dec_point === 'undefined') ? '.' : dec_point,
-        s = '',
-        toFixedFix = function (n, prec) {
-            var k = Math.pow(10, prec);
-            return '' + Math.round(n * k) / k;
-        };
-    // Fix for IE parseFloat(0.55).toFixed(0) = 0;
-    s = (prec ? toFixedFix(n, prec) : '' + Math.round(n)).split('.');
-    if (s[0].length > 3) {
-        s[0] = s[0].replace(/\B(?=(?:\d{3})+(?!\d))/g, sep);
-    }
-    if ((s[1] || '').length < prec) {
-        s[1] = s[1] || '';
-        s[1] += new Array(prec - s[1].length + 1).join('0');
-    }
-    return s.join(dec);
+	var n = !isFinite(+number) ? 0 : +number, prec = !isFinite(+decimals) ? 0
+			: Math.abs(decimals), sep = (typeof thousands_sep === 'undefined') ? ','
+			: thousands_sep, dec = (typeof dec_point === 'undefined') ? '.'
+			: dec_point, s = '', toFixedFix = function(n, prec) {
+		var k = Math.pow(10, prec);
+		return '' + Math.round(n * k) / k;
+	};
+	// Fix for IE parseFloat(0.55).toFixed(0) = 0;
+	s = (prec ? toFixedFix(n, prec) : '' + Math.round(n)).split('.');
+	if (s[0].length > 3) {
+		s[0] = s[0].replace(/\B(?=(?:\d{3})+(?!\d))/g, sep);
+	}
+	if ((s[1] || '').length < prec) {
+		s[1] = s[1] || '';
+		s[1] += new Array(prec - s[1].length + 1).join('0');
+	}
+	return s.join(dec);
+}
+
+function Generar_notification_html(mensaje, icon) {
+	var r = "<div class='pad6'><span class='icon " + icon + "'></span><br>" + mensaje + "</div>";
+	return r;
+}
+
+function isDate(date) {
+	if(!isNaN(new Date(date).getTime())) {
+		  return true;
+	} else {
+		return false;
+	}	  
 }

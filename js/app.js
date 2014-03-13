@@ -188,6 +188,11 @@ function Crear_cuenta() {
 	var repeat_pass = $$('#txtSignupRepeatPass').val();
 	var nombre = $$('#txtSignupName').val();
 	var apellido = $$('#txtSignupSurname').val();
+	nombre = nombre.trim();
+	usuario = usuario.trim();
+	password = password.trim();
+	repeat_pass = repeat_pass.trim();
+	apellido = apellido.trim();
 	if (nombre.length > 0 && apellido.length > 0 && Validar_email(usuario)
 			&& usuario.length > 0 && password.length > 0
 			&& repeat_pass.length > 0 && password == repeat_pass) {
@@ -264,4 +269,86 @@ function Generar_token() {
 	return newtexto;
 }
 
+function Cambiar_input_number(elemento, bol_sumar) {
+	var valor = parseInt($$(elemento).val());
+	if (isNaN(valor)) {
+		valor = 0;
+		$$(elemento).val(valor.toString());
+	}
+	if (bol_sumar) {
+		valor += 1;
+		$$(elemento).val(valor.toString());
+	} else {
+		if (valor>1) {
+			valor -= 1;
+			$$(elemento).val(valor.toString());
+		} else {
+			valor = 1;
+			$$(elemento).val(valor.toString());
+		}	
+	} 
+}
 
+/**
+ * 
+ * @param params, sin el token
+ * @param mostrar_loading, boolean
+ * @param callback
+ * @param callback_error
+ */
+function Llamar_HM(params, mostrar_loading, callback, callback_error) {
+	var token = urlencode(Generar_token());
+	var url = ws_hm + params + "&token=" + token;
+	if (mostrar_loading) Lungo.Notification.show();
+	$$.ajax({
+		type : 'POST', // defaults to 'GET'
+		url : url,
+		dataType : 'json', // 'json', 'xml', 'html', or 'text'
+		async : true,
+		crossDomain : true,
+		success : function(data) {
+			if (data==null) {
+				if (callback_error!=null) {
+					if (mostrar_loading) Lungo.Notification.hide();
+					callback_error();
+				} else {
+					if (mostrar_loading) {
+						Comprobar_si_notification_is_show();
+						Lungo.Notification.error("Error", "Unsuccessful operation.",	"hm-sad", 2);
+					}
+				}
+			} else if (data.error == ws_msg_error) {
+				if (callback_error!=null) {
+					if (mostrar_loading) Lungo.Notification.hide();
+					callback_error();
+				} else {
+					if (mostrar_loading) {
+						Comprobar_si_notification_is_show();
+						Lungo.Notification.error("Error", "Unsuccessful operation.",	"hm-sad", 2);
+					}
+				}
+			} else {
+				if (mostrar_loading) Lungo.Notification.hide();
+				callback(data);	
+			}
+		},
+		error : function(xhr, type) {
+			if (mostrar_loading) 	Lungo.Notification.hide();
+			if (callback_error!=null) {
+				if (mostrar_loading) Lungo.Notification.hide();
+				callback_error();
+			} else {
+				if (mostrar_loading) {
+					Comprobar_si_notification_is_show();
+					Lungo.Notification.error("Error", "Unsuccessful operation.",	"hm-sad", 2);
+				}
+			}
+		}
+	});
+}
+
+function Comprobar_si_notification_is_show() {
+	if (!$$(".notification").hasClass("show")) {
+		Lungo.Notification.show();
+	}
+}

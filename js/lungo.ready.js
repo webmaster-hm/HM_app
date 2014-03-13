@@ -1,35 +1,17 @@
 Lungo.ready(function() {
 		
-	/* CARGAR DESPLEGABLES AL INICIO DE LA APLICACION */
-	if ($$('select#frm-search-disc option').length<1) {
-		WS_Cargar_disciplinas("#frm-search-disc", true);	
-	}
-	if ($$('select#frm-search-asoc option').length<1) {
-		WS_Cargar_asociaciones("#frm-search-asoc", true);	
-	}
-	if ($$('select#frm-search-county option').length<1) {
-		WS_Cargar_regiones(app_pais, "#frm-search-county", true);	
-	}
-	
-	if ($$('select#frm-search-distance option').length<1) {
-		WS_Cargar_filtro_distancia("#frm-search-distance");	
-	}
-
-	if ($$('select#frm-search-others option').length<1) {
-		WS_Cargar_filtro_varios("#frm-search-others");	
-	}
-	
-	if ($$('select#frm-search-venue option').length<1) {
-		WS_Cargar_venues("#frm-search-venue", true);	
-	}
-	/* FIN DE CARGA DE DESPLEGABLES */
-
 	/* LISTADO DE EVENTOS */
 	$$('#list-next-events li').tap(function() {
 		valor = $$(this).attr("id");
 		Abrir_detalle_evento(valor);
 	});
 	/* FIN LISTADO DE EVENTOS */
+	
+	/* ASIDE */
+	$$('#header-aside .icon').tap(function() {
+		Cerrar_aside();
+	});
+	/* FIN ASIDE */
 	
 	/* DETAIL EVENT */
 	Lungo.dom('#detail-event').on('load', function(event){	
@@ -161,7 +143,144 @@ Lungo.ready(function() {
 	Lungo.dom('#my-inscrip').on('load', function(event){	
 		
 	});
-		
+
+	$$("#btn-buy-paypal").tap(function() {
+		var id_inscrip = $$("#my-inscrip-inscripid").val();
+		Comprar_paypal($$("#total_payment").text(), id_inscrip);
+	});
+
+	$$(".removeclass").tap(function() {
+		var id_inscrip_det = $$(this).attr("rel");
+		Confirmar_eliminar_clase_servicio("You have selected to delete this class. Are you sure?", id_inscrip_det, "clase");
+	});
+
+	$$(".removeservice").tap(function() {
+		var id_inscrip_det = $$(this).attr("rel");
+		Confirmar_eliminar_clase_servicio("You have selected to delete this service. Are you sure?", id_inscrip_det, "servicio");
+	});
+	
+	$$(".addservice").tap(function() {
+		var eventId = $$("#my-inscrip-eventid").val();
+		Abrir_add_service(eventId);
+	});
+	
+	$$("#list-services .add").tap(function() {
+		var eventId = $$("#my-inscrip-eventid").val();
+		Abrir_add_service(eventId);
+	});
+	
+	$$(".addclass").tap(function() {
+		var eventId = $$("#my-inscrip-eventid").val();
+		Comenzar_proceso_anadir_clase(eventId);
+	});
+	
+	$$("#list-classes .add").tap(function() {
+		var eventId = $$("#my-inscrip-eventid").val();
+		Comenzar_proceso_anadir_clase(eventId);
+	});
 	/* FIN MY INSCRIPTION */
+
+	/* ADD SERVICE */
+	$$("#add-qty-service").tap(function() {
+		Cambiar_input_number("#frm-services-quantity", true);
+	})	;
+	$$("#remove-qty-service").tap(function() {
+		Cambiar_input_number("#frm-services-quantity", false);
+	});
+	$$("#frm-add-service").tap(function() {
+		Anadir_producto_inscripcion();
+	});
+	
+	
+	/* FIN ADD SERVICE */
+	
+	/* MY ADDRESS */
+	$$("#frm-address-action").tap(function() {
+		Actualizar_direccion();
+	});
+	/* FIN MY ADDRESS */
+	
+	/* ADD CLASS ENTRY */
+	$$("#list-select-class-entry li").tap(function() {
+		if ($$(this).hasClass("row-selected")) {
+			$$(this).removeClass("row-selected");
+			$$(this).removeClass("li-selected");
+		} else {
+			if (!new_entry['clase_multiple']) {
+				// solo se puede seleccionar 1
+				$$("#list-select-class-entry > li").removeClass("row-selected");
+				$$("#list-select-class-entry > li").removeClass("li-selected");
+			}
+			$$(this).addClass("row-selected");
+			$$(this).addClass("li-selected");
+		}
+	});
+	/* FIN ADD CLASS ENTRY */
+	
+	/* SELECT HORSE ENTRY */
+	$$("#list-select-horse-entry li").tap(function() {
+		if ($$(this).hasClass("row-selected")) {
+			$$(this).removeClass("row-selected");
+			$$(this).removeClass("li-selected");
+			$$("#next-select-horse").addClass("ancla-disabled");
+			$$("#btn-edit-horse").addClass("ancla-disabled");
+		} else {
+			$$("#list-select-horse-entry > li").removeClass("row-selected");
+			$$("#list-select-horse-entry > li").removeClass("li-selected");
+			$$(this).addClass("row-selected");
+			$$(this).addClass("li-selected");
+			$$("#next-select-horse").removeClass("ancla-disabled");
+			$$("#btn-edit-horse").removeClass("ancla-disabled");
+		}
+	});
+	
+	// boton next step
+	$$("#next-select-horse").tap(function() {
+		if (!$$("#next-select-horse").hasClass("ancla-disabled")) {
+			//siguiente paso
+			new_entry['paso_actual'] = 2;
+			var id_caballo = $$("#list-select-horse-entry .row-selected").attr("rel");
+			if (id_caballo>0) {
+				new_entry['id_caballo'] = id_caballo;
+				Comprobar_paso_a_ir();	
+			}
+		}
+	});
+	
+	// boton editar
+	$$("#btn-edit-horse").tap(function() {
+		if (!$$("#btn-edit-horse").hasClass("ancla-disabled")) {
+			var id_caballo = $$("#list-select-horse-entry .row-selected").attr("rel");
+			if (id_caballo>0) {
+				Abrir_my_horse(true, id_caballo);
+			}
+		}
+	});
+	
+	$$("#btn-new-horse").tap(function() {
+		Abrir_my_horse(false, 0);
+	});
+	
+	// hold en lista de elementos para editar, seleccionar el que acaba de editarse
+	/*$$("#list-select-horse-entry li").hold(function() {
+		var id_caballo = $$(this).attr("rel");
+		if (id_caballo>0) {
+			Abrir_my_horse(true, id_caballo);
+			$$(this).addClass("row-selected");
+			$$(this).addClass("li-selected");
+			$$("#next-select-horse").removeClass("ancla-disabled");
+			$$("#btn-edit-horse").removeClass("ancla-disabled");
+			$$("#list-select-horse-entry > li").removeClass("row-selected");
+			$$("#list-select-horse-entry > li").removeClass("li-selected");
+		}
+	});*/
+	
+	/* FIN SELECT HORSE ENTRY */
+	
+	/* MY HORSE */
+	$$("#frm-horse-action").tap(function() {
+		Guardar_caballo();
+	});
+	/* FIN MY HORSE */
 });
 

@@ -138,6 +138,10 @@ section .list li.arrow::after {
 	border-color: #cfcfcf;
 }
 
+section .list li.li-selected::after {
+	border-color: #F2F2F2;
+}
+
 section .list li.contrast,section .list li a.contrast {
 	background: #cfcfcf;
 }
@@ -565,6 +569,10 @@ article button.warning,article .button.warning {
 	background-color: #edba22;
 }
 
+article button.edit,article .button.edit {
+	background-color: #3498db;
+}
+
 article button[disabled],article .button[disabled],article button :disabled,article .button :disabled,article button.disabled,article .button.disabled
 	{
 	background: #dadada;
@@ -778,9 +786,9 @@ form input[type=checkbox]:checked:after,.form input[type=checkbox]:checked:after
 	position: absolute;
 }
 
-.notification .confirm,.notification .error, .notification .success {
+.notification .confirm,.notification .error, .notification .success, .notification .html {
 	margin-top: -25% !important;
-	margin-left: -100px !important;
+	margin-left: -30% !important;
 }
 
 .notification .window.growl {

@@ -47,6 +47,7 @@ body[data-os=firefoxos] [data-os=android],body[data-os=firefoxos] [data-os=ios],
 .list li.thumb:not(.big) > img{width:44px;height:44px}
 .list li.thumb:not(.big) > div{padding-left:.8em}
 .list li.arrow::after{position:absolute;right:.5em;top:45%;width:.5em;height:.5em;content:'';border-right:.25em solid;border-top:.25em solid;-webkit-transform:rotate(45deg);-moz-transform:rotate(45deg);-ms-transform:rotate(45deg);-o-transform:rotate(45deg);transform:rotate(45deg)}
+.list li.li-selected::after{position:absolute;right:.5em;top:35%;width:.8em;height:.5em;content:'';border-right:.25em solid;border-top:.25em solid;-webkit-transform:rotate(-225deg);-moz-transform:rotate(-225deg);-ms-transform:rotate(-225deg);-o-transform:rotate(-225deg);transform:rotate(-225deg)}
 .list li a{display:block;text-decoration:none}
 .list li .icon{display:inline-block;float:left;margin-right:.4em;text-align:center;line-height:1em;width:24px;height:24px;font-size:1.4em}
 .list li.anchor{padding:.25em .5em;}
@@ -304,7 +305,7 @@ section.show .loading,section.active .loading,.notification .loading{-webkit-ani
 .notification .window.growl > strong{height:18px;top:84px;padding:0 .5em;overflow:hidden;font-size:11px}
 .notification .window.growl > small{display:none}
 .notification .window.growl > .loading{top:28px}
-.notification .window.success,.notification .window.error,.notification .window.confirm,.notification .window.html{width:200px;margin-top:100%}
+.notification .window.success,.notification .window.error,.notification .window.confirm,.notification .window.html{width:60%;margin-top:100%}
 .notification .window.success,.notification .window.error,.notification .window.confirm{padding-top:1em;}
 .notification .window.success > .icon,.notification .window.error > .icon,.notification .window.confirm > .icon{font-size:5em;line-height:1em}
 .notification .window.success > small,.notification .window.error > small,.notification .window.confirm > small{font-size:.9em;padding-bottom:1em}
@@ -314,7 +315,7 @@ section.show .loading,section.active .loading,.notification .loading{-webkit-ani
 .notification .window.push{position:absolute !important;text-align:left;height:30.666666666666668px;line-height:30.666666666666668px;padding:0 1em;width:100%;-webkit-transition-property:opacity,top;-moz-transition-property:opacity,top;-ms-transition-property:opacity,top;-o-transition-property:opacity,top;transition-property:opacity,top;top:-30.666666666666668px !important;}
 .notification .window.push.show{top:0 !important}
 .notification .window.push .icon{float:left;display:inline;margin-right:.5em;font-size:1.4em}
-.notification .window button{display:block;margin-bottom:1px;width:inherit;line-height:2.5em;border:none;font-size:1.2em}
+.notification .window button{display:block;margin-bottom:1px;width:100%;line-height:2.5em;border:none;font-size:1.2em}
 .notification .window strong,.notification .window small{display:block}
 
 section.hide > [data-control="pull"]{display:none}
@@ -342,6 +343,7 @@ h1{font-size:1.6em}
 h2{font-size:1.5em}
 h3{font-size:1.4em}
 h4{font-size:1.3em}
+
 
 @media only screen and (max-width: 767px){body{-webkit-perspective:800px;-moz-perspective:800px;-ms-perspective:800px;-o-perspective:800px;perspective:800px;-webkit-transform-style:preserve-3d;-moz-transform-style:preserve-3d;-ms-transform-style:preserve-3d;-o-transform-style:preserve-3d;transform-style:preserve-3d;}
 body[data-position="absolute"] > section{position:absolute}

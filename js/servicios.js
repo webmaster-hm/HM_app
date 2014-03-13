@@ -7,11 +7,10 @@ function LLamar_WS(url, callback, mensaje_error) {
 		async : true,
 		crossDomain : true,
 		success : function(data) {
+			Lungo.Notification.hide();
 			if (data.length>0) {
-				Lungo.Notification.hide();
 				callback(data);	
 			} else {
-				Lungo.Notification.hide();
 				Rellenar_next_events(data, mensaje_error);
 			}
 		},
@@ -214,7 +213,7 @@ function WS_Cargar_regiones(pais, select, bol_anadir_all) {
 				if (bol_anadir_all) {
 					Rellenar_combo(data, select, "All counties");
 				} else {
-					Rellenar_combo(data, select, "");
+					Rellenar_combo(data, select, "Select county");
 				}
 			}
 		},
@@ -521,7 +520,7 @@ function WS_Cargar_info_event_para_inscrip(id_evento, id_inscrip, jinete) {
 	Lungo.Notification.show();
 	Rellenar_clases_inscripcion_vacio();
 	Rellenar_totales_inscripcion_vacia();
-	Rellenar_servicios_inscripcion_vacia();
+	Rellenar_servicios_inscripcion_vacia(true);
 	$$.ajax({
 		type : 'POST', // defaults to 'GET'
 		url : url,
@@ -559,32 +558,12 @@ function WS_Cargar_info_event_para_inscrip(id_evento, id_inscrip, jinete) {
  * @param campo, string
  * @param tabla, string
  * @param where, string
- * @param parametro, string or integer
- * @returns {Boolean} or valor
+ * @param order, string
  */
-function WS_Leer_datos(campos, tabla, where, order, callback, callback_error, param_error) {
-	token = urlencode(Generar_token());
-	var url = ws_hm + "WS_Leer_datos&campos=" + urlencode(campos)
-			+ "&tabla=" + urlencode(tabla) + "&where=" + urlencode(where) + "&order=" + urlencode(order) + "&token=" + token;
-	$$.ajax({
-		type : 'POST', // defaults to 'GET'
-		url : url,
-		dataType : 'json', // 'json', 'xml', 'html', or 'text'
-		async : true,
-		crossDomain : true,
-		success : function(data) {
-			if (data.error == ws_msg_error) {
-				callback_error(param_error);
-			} else if (data!="") {
-				callback(data);		
-			} else {
-				callback_error(param_error);
-			}
-		},
-		error : function(xhr, type) {
-			callback_error(param_error);
-		}
-	});
+function WS_Leer_datos(campos, tabla, where, order, callback, callback_error) {
+	var params = "WS_Leer_datos&campos=" + urlencode(campos)
+	+ "&tabla=" + urlencode(tabla) + "&where=" + urlencode(where) + "&order=" + urlencode(order);
+	Llamar_HM(params, false, callback, callback_error);
 }
 
 /**
@@ -682,10 +661,13 @@ function WS_Comprobar_puede_apuntarse(id_evento, callback, callback_error, param
 	});	
 }
 
-function WS_Calcular_inscripcion_sin_confirmar(id, evento, jinete, callback, callback_error, param_error) {
+/**
+ * No muestra el loading, porque lo hace al principio de la aplicacion antes de loguearse incluso
+ * @param callback
+ */
+function WS_Obtener_globales(callback, callback_error) {
 	token = urlencode(Generar_token());
-	var url = ws_hm + "WS_Calcular_inscripcion_sin_confirmar&id=" + id.toString() + 
-		"&evento=" + evento.toString() + "&jinete=" + jinete.toString() + "&token=" + token;
+	var url = ws_hm + "WS_Obtener_globales&token=" + token;
 	$$.ajax({
 		type : 'POST', // defaults to 'GET'
 		url : url,
@@ -694,16 +676,321 @@ function WS_Calcular_inscripcion_sin_confirmar(id, evento, jinete, callback, cal
 		crossDomain : true,
 		success : function(data) {
 			if (data.error == ws_msg_error) {
-				callback_error(param_error);
-			} else if (data.total!=null) {
+				callback_error();
+			} else if (data.app_pais!=null) {
 				callback(data);		
 			} else {
-				callback_error(param_error);
+				callback_error();
 			}
 		},
 		error : function(xhr, type) {
-			callback_error(param_error);
+			callback_error();
 		}
 	});	
 }
 
+/**
+ * Comprobacion por ws del pago confirmado en paypal
+ * @param pay_id
+ * @param callback
+ * @param callback_error
+ */
+function WS_Comprobar_pago_paypal(pay_id, total_hm, paypal_fee, callback, callback_error) {
+	Lungo.Notification.show();
+	token = urlencode(Generar_token());
+	var url = ws_hm + "WS_Comprobar_pago_paypal&token=" + token + "&pay_id=" +urlencode(pay_id) + 
+		"&total_hm=" + urlencode(total_hm.toString()) + "&paypal_fee=" + urlencode(paypal_fee.toString());
+	$$.ajax({
+		type : 'POST', // defaults to 'GET'
+		url : url,
+		dataType : 'json', // 'json', 'xml', 'html', or 'text'
+		async : true,
+		crossDomain : true,
+		success : function(data) {
+			Lungo.Notification.hide();
+			if (data.error == ws_msg_error) {
+				callback_error();
+			} else if (data.id_inscrip>0) {
+				callback(data);		
+			} else {
+				callback_error();
+			}
+		},
+		error : function(xhr, type) {
+			Lungo.Notification.hide();
+			callback_error();
+		}
+	});	
+}
+
+/**
+ * Validar la inscripcion antes de pasar a pagar con paypal
+ * @param id_inscrip
+ * @param jinete
+ * @param evento
+ * @param perfil
+ * @param callback, devuelve estado = true
+ * @param callback_error, devuelve array con estado = false, error_tipo y error_msg
+ */
+function WS_Validar_inscripcion(importe, id_inscrip, jinete, evento, perfil, callback, callback_error) {
+	token = urlencode(Generar_token());
+	var url = ws_hm + "WS_Validar_inscripcion&token=" + token + "&id_inscrip=" +id_inscrip.toString() + 
+		"&jinete=" + jinete.toString() + "&evento=" + evento.toString() + "&perfil=" + perfil.toString();
+	$$.ajax({
+		type : 'POST', // defaults to 'GET'
+		url : url,
+		dataType : 'json', // 'json', 'xml', 'html', or 'text'
+		async : true,
+		crossDomain : true,
+		success : function(data) {
+			if (data.error == ws_msg_error) {
+				callback_error(false, "default", "Unsuccessful operation.");
+			} else if (data.estado) {
+				callback(importe, id_inscrip);		
+			} else {
+				callback_error(data.estado, data.error_tipo, data.error_msg);
+			}
+		},
+		error : function(xhr, type) {
+			callback_error(false, "default", "Unsuccessful operation.");
+		}
+	}); 
+} 
+
+function WS_Actualizar_direccion(usuario, direccion, direccion2, ciudad, cp, movil, region) {
+	token = urlencode(Generar_token());
+	var url = ws_hm + "WS_Actualizar_direccion&token=" + token + "&usuario=" + usuario.toString() +  
+		"&direccion=" + urlencode(direccion) + "&direccion2=" + urlencode(direccion2) + "&cp=" + cp + 
+		"&ciudad=" + urlencode(ciudad) + "&movil=" + urlencode(movil) + "&region=" + region.toString() + 
+		"&pais=" + app_pais.toString();
+	Lungo.Notification.show();
+	$$.ajax({
+		type : 'POST', // defaults to 'GET'
+		url : url,
+		dataType : 'json', // 'json', 'xml', 'html', or 'text'
+		async : true,
+		crossDomain : true,
+		success : function(data) {
+			if (data.error == ws_msg_error) {
+				Lungo.Notification.error("Error","Ups! We have not been able to update your address! Please try again! Don&apos;t forget to check your connection you must be online!!! ","hm-sad", 2); 
+			} else if (data.estado==true) {
+					Lungo.Notification.hide();
+					Lungo.Router.back();	
+			} else {
+				Lungo.Notification.error("Error","Ups! We have not been able to create your profile! Please try again! Don&apos;t forget to check your connection you must be online!!! ","hm-sad", 2);
+			}
+		},
+		error : function(xhr, type) {
+			Lungo.Notification.error("Error","Ups! We have not been able to update your address! Please try again! Don&apos;t forget to check your connection you must be online!!! ","hm-sad", 2);
+		}
+	});
+}
+
+function WS_Cargar_direccion_usuario(callback) {
+	token = urlencode(Generar_token());
+	var url = ws_hm + "WS_Cargar_direccion_usuario&usuario=" + sesion_id_user.toString() 
+			+ "&token=" + token;
+	Lungo.Notification.show();
+	$$.ajax({
+		type : 'POST', // defaults to 'GET'
+		url : url,
+		dataType : 'json', // 'json', 'xml', 'html', or 'text'
+		async : true,
+		crossDomain : true,
+		success : function(data) {
+			if (data.error == ws_msg_error) {
+				Lungo.Notification.error("Error", "Unsuccessful operation.",
+						"hm-sad", 2);
+			} else if (data.id>0) {
+				Lungo.Notification.hide();
+				callback(data);
+			} else {
+				Lungo.Notification.error("Error", "Unsuccessful operation.",
+						"hm-sad", 2);
+			}
+		},
+		error : function(xhr, type) {
+			Lungo.Notification.error("Error", "Unsuccessful operation.",
+					"hm-sad", 2);
+		}
+	});
+}
+
+function WS_Eliminar_clase(id_detalle, evento, id_inscripcion, callback) {
+	token = urlencode(Generar_token());
+	var url = ws_hm + "WS_Eliminar_clase&id_detalle=" + id_detalle.toString() 
+		+ "&jinete=" + sesion_id_user.toString() + "&id_evento=" + evento.toString() 
+		+ "&id_inscripcion=" + id_inscripcion.toString() + "&token=" + token;
+	Lungo.Notification.show();
+	$$.ajax({
+		type : 'POST', // defaults to 'GET'
+		url : url,
+		dataType : 'json', // 'json', 'xml', 'html', or 'text'
+		async : true,
+		crossDomain : true,
+		success : function(data) {
+			if (data.error == ws_msg_error) {
+				Lungo.Notification.error("Error", "Unsuccessful operation.",
+						"hm-sad", 2);
+			} else if (data.estado==true) {
+				Lungo.Notification.hide();
+				callback(data);
+			} else {
+				Lungo.Notification.error("Error", "Unsuccessful operation.",
+						"hm-sad", 2);
+			}
+		},
+		error : function(xhr, type) {
+			Lungo.Notification.error("Error", "Unsuccessful operation.",
+					"hm-sad", 2);
+		}
+	});	
+}
+
+function WS_Eliminar_servicio(id_detalle, evento, id_inscripcion, callback) {
+	token = urlencode(Generar_token());
+	var url = ws_hm + "WS_Eliminar_servicio&id_detalle=" + id_detalle.toString() 
+		+ "&jinete=" + sesion_id_user.toString() + "&id_evento=" + evento.toString() 
+		+ "&id_inscripcion=" + id_inscripcion.toString() + "&token=" + token;
+	Lungo.Notification.show();
+	$$.ajax({
+		type : 'POST', // defaults to 'GET'
+		url : url,
+		dataType : 'json', // 'json', 'xml', 'html', or 'text'
+		async : true,
+		crossDomain : true,
+		success : function(data) {
+			if (data.error == ws_msg_error) {
+				Lungo.Notification.error("Error", "Unsuccessful operation.",
+						"hm-sad", 2);
+			} else if (data.estado==true) {
+				Lungo.Notification.hide();
+				callback(data);
+			} else {
+				Lungo.Notification.error("Error", "Unsuccessful operation.",
+						"hm-sad", 2);
+			}
+		},
+		error : function(xhr, type) {
+			Lungo.Notification.error("Error", "Unsuccessful operation.",
+					"hm-sad", 2);
+		}
+	});	
+}
+
+function WS_Cargar_servicios_evento(id_evento, callback, callback_error) {
+	token = urlencode(Generar_token());
+	var url = ws_hm + "WS_Cargar_servicios_evento&id_evento=" + id_evento.toString() + "&token=" + token;
+	Lungo.Notification.show();
+	$$.ajax({
+		type : 'POST', // defaults to 'GET'
+		url : url,
+		dataType : 'json', // 'json', 'xml', 'html', or 'text'
+		async : true,
+		crossDomain : true,
+		success : function(data) {
+			if (data.error == ws_msg_error) {
+				Lungo.Notification.error("Error", "Unsuccessful operation.",
+						"hm-sad", 2, callback_error);
+			} else if (data.length>0) {
+				Lungo.Notification.hide();
+				callback(data);
+			} else {
+				Lungo.Notification.error("Error", "Unsuccessful operation.",
+						"hm-sad", 2, callback_error);
+			}
+		},
+		error : function(xhr, type) {
+			Lungo.Notification.error("Error", "Unsuccessful operation.",
+					"hm-sad", 2, callback_error);
+		}
+	});	
+}
+
+function WS_Anadir_producto_inscrip(id_evento, jinete, producto, cantidad, callback, callback_error) {
+	token = urlencode(Generar_token());
+	var url = ws_hm + "WS_Anadir_producto_inscrip&id_evento=" + id_evento.toString() + "&token=" + token 
+		+ "&jinete=" + jinete.toString() + "&producto=" + producto.toString() + "&cantidad=" + cantidad.toString();
+	Lungo.Notification.show();
+	$$.ajax({
+		type : 'POST', // defaults to 'GET'
+		url : url,
+		dataType : 'json', // 'json', 'xml', 'html', or 'text'
+		async : true,
+		crossDomain : true,
+		success : function(data) {
+			if (data.error == ws_msg_error) {
+				callback_error(data);
+			} else if (data.id>0) {
+				Lungo.Notification.hide();
+				callback(data);
+			} else {
+				callback_error(data);
+			}
+		},
+		error : function(xhr, type) {
+			callback_error(null);
+		}
+	});	
+}
+
+function WS_Cargar_info_evento_proceso_anadir_clase(id_evento, callback, callback_error) {
+	token = urlencode(Generar_token());
+	var url = ws_hm + "WS_Cargar_info_evento_proceso_anadir_clase&id_evento=" + id_evento.toString() 
+		+ "&token=" + token + "&perfil=" + sesion_perfil.toString() + "&jinete=" + sesion_id_user.toString();
+	Lungo.Notification.show();
+	$$.ajax({
+		type : 'POST', // defaults to 'GET'
+		url : url,
+		dataType : 'json', // 'json', 'xml', 'html', or 'text'
+		async : true,
+		crossDomain : true,
+		success : function(data) {
+			if (data.error == ws_msg_error) {
+				callback_error(data);
+			} else if (data.id>0) {
+				//Lungo.Notification.hide();
+				callback(data);
+			} else {
+				callback_error(data);
+			}
+		},
+		error : function(xhr, type) {
+			callback_error(null);
+		}
+	});
+}
+
+function WS_Cargar_clases_evento_disponibles(id_evento) {
+	var params = "WS_Cargar_clases_evento_disponibles&id_evento=" + id_evento.toString();
+	Llamar_HM(params, true, Rellenar_clases_disponibles_evento, null);	
+}
+
+function WS_Cargar_caballos_usuario() {
+	var params = "WS_Cargar_caballos_usuario&jinete=" + sesion_id_user.toString();
+	Llamar_HM(params, true, Rellenar_lista_caballos, Rellenar_lista_caballos_vacia);
+}
+
+function WS_Cargar_sexo_caballo() {
+	var params = "WS_Cargar_sexo_caballo";
+	Llamar_HM(params, false, Rellenar_cmb_sexo_caballo, null);
+}
+
+function WS_Guardar_caballo(nombre, dob, owner, sexo, id_caballo, edit) {
+	var str_edit = "false";
+	if (edit) {
+		str_edit = "true";
+	}
+	var params = "WS_Guardar_caballo&jinete=" + sesion_id_user.toString() +  "&nombre=" + urlencode(nombre) + 
+		"&dob=" + urlencode(dob) + "&owner=" + urlencode(owner) + "&sexo=" + sexo.toString() + 
+		"&id_caballo=" + id_caballo.toString() + "&edit=" + str_edit;
+	Llamar_HM(params, true, Actualizar_lista_caballos, null);
+}
+
+function WS_Cargar_caballo_id(id_caballo) {
+	var params = "WS_Cargar_caballo_id&id_caballo=" + id_caballo.toString();
+	Llamar_HM(params, true, Rellenar_ficha_caballo, function() {
+		Comprobar_si_notification_is_show();
+		Lungo.Notification.error("Error", "Unsuccessful operation","hm-sad", 2);
+	});
+}

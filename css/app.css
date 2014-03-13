@@ -14,6 +14,11 @@ body>aside>header>h1 {
 	font-weight: 700;
 }
 
+#header-aside .icon {
+	font-size: 1.3em;
+	margin-left: 10px;	
+	cursor: pointer;
+}
 
 body {
 	margin: 0;
@@ -56,6 +61,10 @@ body {
 	padding: 15px;
 }
 
+.pad6 {
+	padding: 6px;
+}
+
 .bottom10 {
 	margin-bottom: 10px;	
 }
@@ -74,6 +83,10 @@ body {
 
 .clear {
 	clear: both;
+}
+
+.relative {
+	position: relative;
 }
 
 .width50 {
@@ -125,7 +138,6 @@ body {
 aside .opcion {
 	line-height: 32px;
 	height: 32px;
-	padding: 8px;
 	padding: 8px 8px 8px 16px;
 }
 
@@ -320,6 +332,48 @@ aside li a {
 	background-color: #FAFAFA;
 	border: 1px solid #FAFAFA;
 	color: #8B8B8B !important;
+}
+
+.number-action {
+	color: #DADADA;
+	position: absolute;
+	right: 0px;
+	top: 30%;
+	margin-right: 25px;
+}
+
+.div-input-number {
+	width: 30%;
+}
+
+.plus-number, .minus-number {
+	position: relative;
+	font-size: 150%;
+	float: right;
+	margin-left: 16px;
+}
+
+.plus-number:hover, .plus-number:active, 
+.minus-number:hover, .minus-number:active {
+	color: #00AFE3;
+}
+
+footer nav a .icon {
+	font-size: 1.2em;
+}
+
+.row-selected {
+	background-color: #3498db !important;
+	color: #FFF;
+}
+
+.actions-list {
+	padding: 10px;
+}
+
+.ancla-disabled {
+	background-color: #e9e9e9 !important;
+	color: #858585 !important;
 }
 
 /* ------------------------------ NEXT EVENTS ---------------------------------- */
@@ -637,7 +691,7 @@ aside li a {
 }
 
 #list-classes li, #list-services li {
-	padding: 6px 30px 6px 6px;
+	padding: 10px 30px 10px 10px;
 	background-color: #FFF;
 	border: 1px solid #e2e2e2;
 	margin-bottom: 8px;
@@ -663,7 +717,7 @@ aside li a {
 #list-classes li .div-action-class, #list-services li .div-action-class {
 	position: absolute;
 	right: 4px;
-	top: 5px;
+	top: 9px;
 	min-height: 20px;
 	min-width: 20px;
 }
@@ -713,5 +767,113 @@ aside li a {
 	font-size: 100%;
 }
 
+#label-inscrip-checkout .count {
+	font-size: 18px;
+}
 
+/* ------------------------------- ADD SERVICE ------------------------------- */
+#frm-services-quantity {
+	font-size: 150%;
+}
 
+.div-input-number, #frm-services-quantity {
+	min-width: 140px;
+}
+
+/* ----------------------------- LIST CLASS ENTRY -------------------------- */
+#list-select-class-entry {
+		background: #FAFAFA;
+}
+
+#list-select-class-entry li {
+	background: #FAFAFA;
+	position: relative;
+	overflow: hidden;
+	display: block;
+	min-height: 56px;
+	margin-right: 6px;
+	padding: 7px 20px 7px 10px;
+}
+
+#list-select-class-entry li:active, #list-select-class-entry li:hover {
+	background: #EEE;
+}
+
+#list-select-class-entry .li-verde-claro {
+	box-shadow: 6px 0 #009933 inset;
+	-webkit-box-shadow: 6px 0 #009933 inset;
+	-moz-box-shadow: 6px 0 #009933 inset;
+}
+
+#list-select-class-entry .par {
+	background-color: #FEFEFE;
+}
+
+.div-descrip-clase-select {
+	overflow: hidden;
+	text-overflow: ellipsis;
+	font-size: 100%;
+}
+
+.div-chk-clase-select {
+	float: right;
+	width: 80px;
+}
+
+/* ----------------------- LIST HORSE ENTRY ------------------------------ */
+#list-select-horse-entry {
+		background: #FAFAFA;
+		border-bottom: 1px solid #e2e2e2;
+}
+
+#list-select-horse-entry li {
+	background: #FAFAFA;
+	position: relative;
+	overflow: hidden;
+	display: block;
+	height: 56px;
+	margin-right: 6px;
+	padding: 7px 20px 7px 10px;
+}
+
+#list-select-horse-entry li:active, #list-select-horse-entry li:hover {
+	background: #EEE;
+}
+
+#list-select-horse-entry .li-verde-claro {
+	box-shadow: 6px 0 #009933 inset;
+	-webkit-box-shadow: 6px 0 #009933 inset;
+	-moz-box-shadow: 6px 0 #009933 inset;
+}
+
+#list-select-horse-entry .par {
+	background-color: #FEFEFE;
+}
+
+.div-nombre-horse-select {
+	overflow: hidden;
+	text-overflow: ellipsis;
+	font-size: 100%;
+	white-space: nowrap;
+	line-height:21px;
+}
+
+.div-img-horse-select {
+	float: left;
+	margin-right: 10px;
+	border-radius: 4px;
+	-webkit-border-radius:4px;
+	-moz-border-radius:4px;
+	-ms-border-radius:4px;
+	-o-border-radius:4px;
+	height: 40px;
+	width: 40px;
+	border: 1px solid #E2E2E2;
+}
+
+.div-img-horse-select img {
+	height: 40px;
+	width: auto;
+
+	
+}

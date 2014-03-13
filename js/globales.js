@@ -1,12 +1,11 @@
 	// VARIABLES GLOBALES
-	/* EN WS_HM VA LA DIRECCION DEL WEBSERVICE */
-	var ws_hm = ""; 
-	var web_detail = "https://horsemonkey.com/uk_horse_events_british_equestrian/";
-	var token_ws = "2222222222222222222222"; // se usa para comprobar token con el webservice
-	var app_token_key = "11111111111111111111"; // se usa para encriptar y desencriptar
+	var ws_hm = ""; //direccion del webservice 
+	var web_detail = "";
+	var token_ws = "1111111111111111111111111"; // token de validacion para el webservice
+	var app_token_key = "2222222222222222222222222"; // se usa para encriptar y desencriptar
 	var ws_msg_error = "KO";
-	var app_limite_eventos = 50;
-	var app_dias_vista = 30; /* numero de dias del filtro de eventos */
+	var app_limite_eventos = 0;
+	var app_dias_vista = 0; /* numero de dias del filtro de eventos */
 	var app_search_from = new Date();
 	var app_search_to = new Date();
 	var cal_objeto = null; /* global del calendario */
@@ -26,9 +25,12 @@
 	var app_longitud_defecto = -0.12794959999996536;
 	var app_pais = 1;
 	var app_status_network = true; // por defecto True para hacer pruebas en web
-	var app_moneda = "£";
-	var app_terms_qualifying = "Qualifying Terms & Conditions<br><br>Please be aware that it is your responsibility to enter the correct horse " + 
-		"in the class it qualified for.<br><br>Refunds will not be given to incorrect entries.";
+	var app_moneda = "";
+	var app_terms_qualifying = "";
+	
+	var paypal_clientID = "";
+	var paypal_moneda = "GBP";
+	var paypal_approved = "";
 	
 	/*
 	app_latitud_defecto = 53.47502679999999; // aintree para pruebas
@@ -44,12 +46,6 @@
 	var sesion_nombre = "";
 	var sesion_perfil = 0;
 	
-	/* PREFERENCIAS */
-	var preferencias = new Array();
-	preferencias['mostrar_max'] = 50; /* numero maximo de resultados a mostrar */
-	
-	
-	
-	
-	
+	/* VARIABLES POR INSCRIPCION DE CLASE */
+	var new_entry = [];
 	
