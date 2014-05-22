@@ -37,7 +37,7 @@
 	padding: 5px 10px 10px 20px;
 	height: 70px;
 	position: relative;
-	border-top: 5px solid #ef4f69;
+	border-top: 5px solid #9f3340;
 	border-bottom: 1px solid #ddd;
 }
 
@@ -87,7 +87,7 @@
 }
 
 .custom-header nav span:before {
-	color: #ef4f69;
+	color: #9f3340;
 	position: absolute;
 	text-align: center;
 	width: 100%;
@@ -188,7 +188,7 @@
 
 .fc-calendar .fc-head {
 	background: transparent;
-	color: #ef4f69;
+	color: #9f3340;
 	font-weight: bold;
 	text-transform: uppercase;
 	font-size: 12px;
@@ -208,7 +208,7 @@
 	left: 50%;
 	text-align: center;
 	margin: -10px 0 0 -15px;
-	color: #686a6e;
+	color: #9f3340;
 	font-weight: 400;
 	pointer-events: none;
 }
@@ -241,7 +241,7 @@
 }
 
 .fc-calendar .fc-row > div.fc-content:hover:after{
-	color: #ef4f69;
+	color: #9f3340;
 }
 
 .fc-calendar .fc-row > div.fc-today.fc-content:hover:after{

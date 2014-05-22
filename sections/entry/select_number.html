@@ -1,0 +1,26 @@
+<section id="select-number" data-transition="slide" >
+	<header data-title="Select quantity" data-target="back">
+		<nav class="left">
+			<a href="#"  data-view-section="back"> <span
+				class="icon chevron-left"></span>
+			</a>
+		</nav>
+	</header>
+	<article id="art-select-number" class="scroll active">
+		<input type="hidden" id="select-number-id-prod" value="0" />
+		<div id="titulo-select-number" class="box ev-info-nombre-evento"></div>
+		<div id="content-select-number" class="form">
+				<div class="relative div-input-number">
+				<input type="hidden" id="select-number-idprod" value="0" />
+				<input class="border" type="number" value="1" name="frm-services-quantity" id="frm-services-quantity" min="0" max="999">
+				<br/>
+				<div class="number-action box">
+					<div id="add-qty-service" class="plus-number icon plus"></div>
+					<div id="remove-qty-service" class="minus-number icon minus"></div>
+				</div>		
+			</div>
+			<button id="frm-add-qty" class="top10 anchor margin-bottom"
+					data-label="Continue" data-icon="save" onclick="Volver_select_number();"></button>
+		</div>
+	</article>
+</section>

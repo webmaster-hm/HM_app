@@ -1,5 +1,5 @@
 <section id="add-service" data-transition="slide" data-aside="features">
-	<header data-title="Add service/product" data-target="back">
+	<header data-title="Add/Edit services" data-target="back">
 		<nav class="left">
 			<a href="#" data-view-section="back"> <span
 				class="icon chevron-left"></span>
@@ -7,16 +7,10 @@
 		</nav>
 	</header>
 	<article id="art-add-service" class="scroll active">
-		<div class="frm-search">
-			<div class="form">
-				<div id="info-add-service" class="bottom10"><div class="marco-gris">Please select from the drop down menu
-						the products or services that you want to add to your entry:</div></div>
-				<input type="hidden" id="add-service-eventId" value="0" />
-				<label class="select border"> <select
-					id="frm-services">
-				</select>
-				</label>
-				<label>Quantity</label>
+		<input type="hidden" id="add-service-eventId" value="0" />
+		<div id="content-add-service">
+				<!-- 
+				<label>Select quantity</label>
 				<div class="relative div-input-number">
 				<input class="border" type="number" value="1" name="frm-services-quantity" id="frm-services-quantity" min="1" max="999">
 				<div class="number-action">
@@ -26,7 +20,12 @@
 				</div>
 				<button id="frm-add-service" class="anchor margin-bottom"
 					data-label="Add service/product" data-icon="plus"></button>
-			</div>
+					 -->
 		</div>
 	</article>
+		<footer>
+		<nav>
+			<a href="#"  id="btn-add-service-action" class="btn-verde-claro">Save</a>
+		</nav>
+	</footer>
 </section>

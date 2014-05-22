@@ -1,0 +1,38 @@
+<section id="my-rider" data-transition="slide"
+	data-aside="features">
+	<header data-title="My Rider" data-target="back">
+		<nav class="left">
+			<a href="#" data-view-section="back"> <span
+				class="icon chevron-left"></span>
+			</a>
+		</nav>
+	</header>
+	<article id="art-my-rider" class="scroll active">
+		<div class="frm-search">
+			<div class="form">
+			<div id="div-my-rider-info"></div>
+			<input type="hidden" id="frm-rider-bol-edit" name="frm-rider-bol-edit" value="0" > 
+			<input type="hidden" id="frm-rider-id" name="frm-rider-id" value="0" >
+			<input type="hidden" id="frm-rider-bol-req" name="frm-rider-bol-req" value="0" >			
+			<label class="top2p">Name *</label>
+				<fieldset class="radius-top bottom10 " data-icon="pencil">
+			<input type="text" placeholder="Enter rider's name" id="txtRiderName" value="" >
+			</fieldset>
+			<label class="top2p">Surname *</label>
+				<fieldset class="radius-top bottom10 " data-icon="pencil">
+			<input type="text" placeholder="Enter rider's surname" id="txtRiderSurname" value="" >
+			</fieldset>
+			<label class="top2p">Rider's DOB *</label>
+				<fieldset class="radius-top bottom10 " data-icon="calendar">
+			<input type="date" id="txtRiderDOB" value="" >
+			</fieldset>			
+			<label>Gender *</label>
+				<label class="select border">
+				<select id="frm-rider-gender">
+				</select>
+			</label>
+				<button id="frm-rider-action" class="anchor margin-bottom" data-label="Save" data-icon="save"></button>
+			</div>
+		</div>
+	</article>
+</section>

@@ -259,4 +259,7 @@
 .icon.hm-happy:before {
 	content: url("../images/hm_happy.png");
 }
+.icon.hm-rider:before {
+	content: url("../images/icons/rider_gris.png");
+}
 

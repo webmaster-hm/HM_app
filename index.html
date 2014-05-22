@@ -21,9 +21,8 @@
 <link rel="stylesheet" href="css/icons.css">
 <link rel="stylesheet" href="css/calendar.css" />
 <link rel="stylesheet" href="css/calendar_custom.css" />
-<!-- 
-<link rel="stylesheet" href="css/font-awesome.min.css" />
- -->
+<link rel="stylesheet" href="css/app_responsive.css">
+
 </head>
 <body>
 
@@ -52,14 +51,23 @@
 
 </body>
  
- <!-- SOLO COMPILAR EN ECLIPSE ANDROID 
-<script src="phonegap.js"></script>
+ <!-- SOLO COMPILAR PARA APP (ios y android) 
+<script src="cordova.js"></script>
+-->
+
+<!-- SOLO PARA ANDROID 
 <script src="js/PayPalMobilePGPlugin.js"></script>
+-->
+
+<!-- SOLO PARA IOS 
+<script type="text/javascript" src="js/cdv-plugin-paypal-mobile-sdk.js"></script>
+<script type="text/javascript" src="js/paypal-mobile-js-helper.js"></script>
  -->
+ 
 <script src="https://maps.googleapis.com/maps/api/js?sensor=false"
-	type="text/javascript"></script>
+	type="text/javascript"></script>  
 <script src="js/quo.debug.js"></script>
-<script src="js/lungo.js"></script>
+<script src="js/lungo_full.js"></script>
 <script src="js/globales.js"></script>
 <script src="js/app.js"></script>
 <script src="js/eventos.js"></script>
@@ -77,7 +85,13 @@
 				'sections/menu.html', 'sections/signup.html', 'sections/view_doc.html', 
 				'sections/forgot_pass.html', 'sections/entry/my_inscrip.html', 
 				'sections/my_address.html', 'sections/my_horse.html', 'sections/entry/add_service.html', 
-				'sections/entry/select_class.html', 'sections/entry/select_horse.html'],
+				'sections/entry/select_class.html', 'sections/entry/select_horse.html', 
+				'sections/entry/select_rider.html', 'sections/my_rider.html', 
+				'sections/my_profile.html', 'sections/entry/select_memberships.html', 
+				'sections/entry/select_level.html', 'sections/entry/select_method.html', 
+				'sections/entry/sagepay.html', 'sections/my_entries.html', 
+				'sections/entry/view_entry.html', 'sections/entry/select_number.html', 
+				'sections/contact.html', 'sections/my_results.html'],
 		history : false
 	});
 

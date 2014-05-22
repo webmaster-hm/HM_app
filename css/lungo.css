@@ -67,7 +67,7 @@ header nav .loading{font-size:1.6em;}
 header nav .loading + .icon{display:none}
 nav[data-control=groupbar],footer nav{display:-webkit-box;display:-moz-box;display:-ms-box;display:-o-box;display:box;-webkit-box-pack:justify;-moz-box-pack:justify;-ms-box-pack:justify;-o-box-pack:justify;box-pack:justify;width:100%;}
 nav[data-control=groupbar] > a,footer nav > a{-webkit-box-flex:1;-moz-box-flex:1;-ms-box-flex:1;-o-box-flex:1;box-flex:1;text-decoration:none}
-nav[data-control=groupbar]{z-index:2;height:36px;width:100%;font-size:.9em;line-height:36px;}
+nav[data-control=groupbar]{z-index:2;height:36px;width:100%;font-size:100%;line-height:36px;}
 nav[data-control=groupbar] > a{padding:0;margin:0;height:36px !important;display:block;text-align:center;}
 nav[data-control=groupbar] > a .icon,nav[data-control=groupbar] > a .tag{margin:0 .2em;line-height:inherit}
 nav[data-control=menu]{position:absolute;left:0;top:0;top:46px;visibility:hidden;z-index:2;width:100%;text-align:center;-webkit-transform:translateY(-120%);-moz-transform:translateY(-120%);-ms-transform:translateY(-120%);-o-transform:translateY(-120%);transform:translateY(-120%);-webkit-transition-property:transform;-moz-transition-property:transform;-ms-transition-property:transform;-o-transition-property:transform;transition-property:transform;-webkit-transition-duration:500ms;-moz-transition-duration:500ms;-ms-transition-duration:500ms;-o-transition-duration:500ms;transition-duration:500ms;-webkit-transition-timing-function:cubic-bezier(.645,.045,.355,1);-moz-transition-timing-function:cubic-bezier(.645,.045,.355,1);-ms-transition-timing-function:cubic-bezier(.645,.045,.355,1);-o-transition-timing-function:cubic-bezier(.645,.045,.355,1);transition-timing-function:cubic-bezier(.645,.045,.355,1);-webkit-backface-visibility:hidden;-moz-backface-visibility:hidden;-ms-backface-visibility:hidden;-o-backface-visibility:hidden;backface-visibility:hidden;}
@@ -345,7 +345,7 @@ h3{font-size:1.4em}
 h4{font-size:1.3em}
 
 
-@media only screen and (max-width: 767px){body{-webkit-perspective:800px;-moz-perspective:800px;-ms-perspective:800px;-o-perspective:800px;perspective:800px;-webkit-transform-style:preserve-3d;-moz-transform-style:preserve-3d;-ms-transform-style:preserve-3d;-o-transform-style:preserve-3d;transform-style:preserve-3d;}
+@media only screen and (max-width: 4096px){body{-webkit-perspective:800px;-moz-perspective:800px;-ms-perspective:800px;-o-perspective:800px;perspective:800px;-webkit-transform-style:preserve-3d;-moz-transform-style:preserve-3d;-ms-transform-style:preserve-3d;-o-transform-style:preserve-3d;transform-style:preserve-3d;}
 body[data-position="absolute"] > section{position:absolute}
 body[data-position="fixed"] > section{position:fixed}
 body > aside{z-index:0;position:absolute;}
@@ -357,6 +357,7 @@ body > section.aside-right{-webkit-transform:translateX(-256px);-moz-transform:t
 body [data-transition],body [data-aside-transition]{display:-webkit-box;display:-moz-box;display:-ms-box;display:-o-box;display:box;-webkit-backface-visibility:hidden;-moz-backface-visibility:hidden;-ms-backface-visibility:hidden;-o-backface-visibility:hidden;backface-visibility:hidden;-webkit-animation-duration:500ms;-moz-animation-duration:500ms;-ms-animation-duration:500ms;-o-animation-duration:500ms;animation-duration:500ms;-webkit-animation-timing-function:cubic-bezier(.645,.045,.355,1);-moz-animation-timing-function:cubic-bezier(.645,.045,.355,1);-ms-animation-timing-function:cubic-bezier(.645,.045,.355,1);-o-animation-timing-function:cubic-bezier(.645,.045,.355,1);animation-timing-function:cubic-bezier(.645,.045,.355,1);-webkit-animation-fill-mode:forwards;-moz-animation-fill-mode:forwards;-ms-animation-fill-mode:forwards;-o-animation-fill-mode:forwards;-webkit-animation-fill-mode:forwards;-moz-animation-fill-mode:forwards;-ms-animation-fill-mode:forwards;-o-animation-fill-mode:forwards;animation-fill-mode:forwards;visibility:hidden;}
 body [data-transition].show,body [data-aside-transition].show{visibility:visible}
 }
+/*
 @media only screen and (min-width: 768px){body{display:-webkit-box;display:-moz-box;display:-ms-box;display:-o-box;display:box;-webkit-box-orient:horizontal;-moz-box-orient:horizontal;-ms-box-orient:horizontal;-o-box-orient:horizontal;box-orient:horizontal;overflow:hidden;-webkit-perspective:800px;-moz-perspective:800px;-ms-perspective:800px;-o-perspective:800px;perspective:800px;-webkit-transform-style:preserve-3d;-moz-transform-style:preserve-3d;-ms-transform-style:preserve-3d;-o-transform-style:preserve-3d;transform-style:preserve-3d;}
 body div.notification{position:absolute !important}
 body > section,body > aside{-webkit-backface-visibility:hidden;-moz-backface-visibility:hidden;-ms-backface-visibility:hidden;-o-backface-visibility:hidden;backface-visibility:hidden;-webkit-animation-timing-function:cubic-bezier(.645,.045,.355,1);-moz-animation-timing-function:cubic-bezier(.645,.045,.355,1);-ms-animation-timing-function:cubic-bezier(.645,.045,.355,1);-o-animation-timing-function:cubic-bezier(.645,.045,.355,1);animation-timing-function:cubic-bezier(.645,.045,.355,1);-webkit-animation-duration:500ms;-moz-animation-duration:500ms;-ms-animation-duration:500ms;-o-animation-duration:500ms;animation-duration:500ms;-webkit-animation-fill-mode:forwards;-moz-animation-fill-mode:forwards;-ms-animation-fill-mode:forwards;-o-animation-fill-mode:forwards;-webkit-animation-fill-mode:forwards;-moz-animation-fill-mode:forwards;-ms-animation-fill-mode:forwards;-o-animation-fill-mode:forwards;animation-fill-mode:forwards}
@@ -417,6 +418,7 @@ body > section[data-children]{width:320px}
 }@keyframes withoutAsideOpacity{0%{-webkit-transform:translateX(256px);-moz-transform:translateX(256px);-ms-transform:translateX(256px);-o-transform:translateX(256px);transform:translateX(256px);opacity:.6}
 100%{-webkit-transform:translateX(0);-moz-transform:translateX(0);-ms-transform:translateX(0);-o-transform:translateX(0);transform:translateX(0)}
 }
+*/
 
 section[data-aside-left="show"]{-webkit-animation-name:sectionAsideLeftShow;-moz-animation-name:sectionAsideLeftShow;-ms-animation-name:sectionAsideLeftShow;-o-animation-name:sectionAsideLeftShow;animation-name:sectionAsideLeftShow}
 section[data-aside-left="hide"]{-webkit-animation-name:sectionAsideLeftHide;-moz-animation-name:sectionAsideLeftHide;-ms-animation-name:sectionAsideLeftHide;-o-animation-name:sectionAsideLeftHide;animation-name:sectionAsideLeftHide}

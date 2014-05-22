@@ -1,5 +1,4 @@
-<section id="my-horse" data-transition="slide"
-	data-aside="features">
+<section id="my-horse" data-transition="slide">
 	<header data-title="My Horse" data-target="back">
 		<nav class="left">
 			<a href="#" data-view-section="back"> <span
@@ -13,6 +12,7 @@
 			<div id="div-my-horse-info"></div>
 			<input type="hidden" id="frm-horse-bol-edit" name="frm-horse-bol-edit" value="0" > 
 			<input type="hidden" id="frm-horse-id" name="frm-horse-id" value="0" >
+			<input type="hidden" id="frm-horse-bol-req" name="frm-horse-bol-req" value="0" >			
 			<label class="top2p">Horse *</label>
 				<fieldset class="radius-top bottom10 " data-icon="pencil">
 			<input type="text" placeholder="Enter horse's name" id="txtHorse" value="" >
@@ -20,7 +20,11 @@
 			<label class="top2p">Horse's DOB *</label>
 				<fieldset class="radius-top bottom10 " data-icon="calendar">
 			<input type="date" id="txtDOB" value="" >
-			</fieldset>			
+			</fieldset>
+			<label class="top2p">Horse's height (cms) *</label>
+				<fieldset class="radius-top bottom10 " data-icon="resize-vertical">
+			<input type="number" id="txtHeight" value="" >
+			</fieldset>						
 			<label>Gender *</label>
 				<label class="select border">
 				<select id="frm-horse-gender">

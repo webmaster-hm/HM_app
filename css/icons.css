@@ -9,6 +9,10 @@
 
 .icon-med {
 	border-radius: 44px;
+	-webkit-border-radius:44px;
+	-moz-border-radius:44px;
+	-ms-border-radius:44px;
+	-o-border-radius:44px;
 }
 
 .icon-menu {
@@ -34,6 +38,10 @@ header button:hover, header button:active, header .left .icon:hover, header .lef
 	height: 32px;
 	width: 32px;
 	border-radius: 17px;
+	-webkit-border-radius:17px;
+	-moz-border-radius:17px;
+	-ms-border-radius:17px;
+	-o-border-radius:17px;	
 	-webkit-box-sizing: content-box;
 	-moz-box-sizing: content-box;
 	-ms-box-sizing: content-box;
@@ -52,9 +60,13 @@ header button:hover, header button:active, header .left .icon:hover, header .lef
 }
 
 .icon-list-right {
-	background-size: 20px 20px;
+	background-size: 30px 30px;
 	background-repeat: no-repeat;
 	background-position: center center;
+}
+
+.icon-list-cancel {
+	
 }
 
 .icon-verde {
@@ -127,6 +139,16 @@ header button:hover, header button:active, header .left .icon:hover, header .lef
 	background: #aebbc1;
 }
 
+.icon-gris {
+	border: 1px solid #858585;
+	background: #e2e2e2;
+}
+
+.icon-gris:hover {
+	border: 1px solid #858585;
+	background: #e9e9e9;
+}
+
 .icon-blanco {
 	border: 1px solid #e2e2e2;
 	background: #FFFFFF;
@@ -141,6 +163,16 @@ header button:hover, header button:active, header .left .icon:hover, header .lef
 .icon-naranja-claro:hover {
 	border: 1px solid #f9a827;
 	background: #f9a827;
+}
+
+.icon-gris-claro {
+	border: 1px solid #e2e2e2;
+	background: #f2f2f2;
+}
+
+.icon-gris-claro:hover {
+	border: 1px solid #858585;
+	background: #e2e2e2;
 }
 
 .icon-home {
@@ -207,6 +239,33 @@ header button:hover, header button:active, header .left .icon:hover, header .lef
 	background-image: url(../images/icons/logout_gris.png);
 }
 
+.icon-entries-green {
+	background-image: url(../images/icons/entries_verde.png);
+}
+
+.icon-entries-grey {
+	background-image: url(../images/icons/entries_gris.png);
+}
+
+.icon-invoice-grey {
+	background-image: url(../images/icons/invoice_gris.png);
+}
+
+.icon-service-blue {
+	background-image: url(../images/icons/servicios_azul.png);
+}
+
+.icon-contact-grey {
+	background-image: url(../images/icons/email_gris.png);
+}
+
+.icon-results-blue {
+	background-image: url(../images/icons/trofeo_azul.png);
+}
+
+.icon-results-grey {
+	background-image: url(../images/icons/trofeo_gris.png);
+}
 /* ------------------- nuevo formato -------------------------------- */
 
 .icons-home-in {
@@ -219,6 +278,10 @@ header button:hover, header button:active, header .left .icon:hover, header .lef
 	top: 4px;
 	left: 4px;
 	border-radius: 40px;
+	-webkit-border-radius:40px;
+	-moz-border-radius:40px;
+	-ms-border-radius:40px;
+	-o-border-radius:40px;
 }
 
 .icons-home-border:hover, .icons-home-border:active {
@@ -229,6 +292,10 @@ header button:hover, header button:active, header .left .icon:hover, header .lef
 	height: 88px;
 	width: 88px;
 	border-radius: 44px;
+	-webkit-border-radius:44px;
+	-moz-border-radius:44px;
+	-ms-border-radius:44px;
+	-o-border-radius:44px;	
 	position: relative;
 	opacity: 1;
 }
@@ -255,6 +322,10 @@ header button:hover, header button:active, header .left .icon:hover, header .lef
 
 .border-in-blue {
 	border: 2px solid #1d3441;
+}
+
+.border-in-lightblue {
+	border: 2px solid #3498db;
 }
 
 .shadow-blue {
@@ -337,6 +408,10 @@ header button:hover, header button:active, header .left .icon:hover, header .lef
 	height: 32px;
 	width: 32px;
 	border-radius: 17px;
+	-webkit-border-radius:17px;
+	-moz-border-radius:17px;
+	-ms-border-radius:17px;
+	-o-border-radius:17px;
 	-webkit-box-sizing: content-box;
 	-moz-box-sizing: content-box;
 	-ms-box-sizing: content-box;
